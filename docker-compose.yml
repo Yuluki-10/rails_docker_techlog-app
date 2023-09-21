@@ -1,0 +1,44 @@
+# もしメジャーバージョンのみを記述した場合、マイナーバージョンは最新バージョンではなくデフォルトの 0 が補完される（→'3'の場合は3.0になる）
+version: '3.8'
+services:
+  web:
+    container_name: rails_docker_techlog-app
+    # build: .でdocker-compose.ymlと同じフォルダにDockerfileがあることを示す
+    build: .
+    # 毎回 rm tmp/pids/server.pid するのも手間であるため、・事前に手元で/tmp/pids/server.pidを削除する。tailwindcssのビルドも行う
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails tailwindcss:build && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/rails_docker_techlog-app
+      # bundle installでインストールされたgemの内容を永続化するため
+      - bundle_install:/usr/local/bundle
+    ports:
+      - 3000:3000
+    stdin_open: true
+    tty: true
+    depends_on:
+      - db
+
+  db:
+    container_name: db-rails_docker_techlog-app
+    image: mysql:8.0
+    # m1mac+mysql8は、platformを指定して、linux/x86_64にエミュレートする指定をすることで正常に動くようになる。mysql5の場合はlinux/amd64
+    platform: linux/x86_64
+    # コンテナを自動的に再起動
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: root
+      TZ: "Asia/Tokyo"
+    volumes:
+      - db-rails_docker_techlog-app:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    command: --default-authentication-plugin=mysql_native_password
+
+# PC上にdb-rails_docker_techlog-appという名前でボリューム（データ領域）が作成される
+# コンテナを作り直したとしてもPC上に残るようにするために設定
+volumes:
+  db-rails_docker_techlog-app:
+  # bundle installでインストールされたgemの内容を永続化
+  bundle_install:
+    driver: local
