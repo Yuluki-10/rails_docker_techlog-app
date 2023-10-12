@@ -63,4 +63,7 @@ RSpec.configure do |config|
 
   # FactoryBot のメソッドを使う際、そのモジュール名 (FactoryBot)を省略する設定
   config.include FactoryBot::Syntax::Methods
+
+  # 第3章：devise gemのヘルパーメソッド。RSpecテスト内で、sign_in user等の記述のみで、ユーザーモデルでログインできる。
+  config.include Devise::Test::IntegrationHelpers, type: :system
 end
