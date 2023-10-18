@@ -42,7 +42,7 @@ describe 'User', type: :system do
       context 'エラー理由が2件以上の場合' do
         let(:nickname) { '' }
         let(:email) { '' }
-        it '、ユーザー作成に失敗した旨のエラーメッセージを表示する' do
+        it 'ユーザー作成に失敗した旨のエラーメッセージを表示する' do
           subject
           expect(page).to have_content('エラーが発生したため ユーザー は保存されませんでした。')
         end
