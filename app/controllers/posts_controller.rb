@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:show]
 
   def new
     @post = Post.new
@@ -17,9 +17,14 @@ class PostsController < ApplicationController
     end
   end
 
+  def show
+    # @post = Post.find_by(id: params[:id])スッキリしないから自分はfindにした
+    @post = Post.find(params[:id])
+  end
+
   private
 
-  def post_params
-    params.require(:post).permit(:title, :content) # post属性を必須とし、title,content属性を許可
-  end
+    def post_params
+      params.require(:post).permit(:title, :content) # post属性を必須とし、title,content属性を許可
+    end
 end
