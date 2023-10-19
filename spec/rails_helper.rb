@@ -66,4 +66,5 @@ RSpec.configure do |config|
 
   # 第3章：devise gemのヘルパーメソッド。RSpecテスト内で、sign_in user等の記述のみで、ユーザーモデルでログインできる。
   config.include Devise::Test::IntegrationHelpers, type: :system
+  config.include Devise::Test::IntegrationHelpers, type: :request # 第4章：request/posts_specでも使用
 end
