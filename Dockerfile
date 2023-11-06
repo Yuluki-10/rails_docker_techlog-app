@@ -29,4 +29,6 @@ EXPOSE 3000
 
 # Start the main process.
 # コンテナ起動時に実行するコマンドを指定
-CMD ["rails", "server", "-b", "0.0.0.0"]
+# CMD ["rails", "server", "-b", "0.0.0.0"]
+COPY start.sh /start.sh
+CMD ["sh", "/start.sh"]
