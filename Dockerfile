@@ -31,4 +31,5 @@ EXPOSE 3000
 # コンテナ起動時に実行するコマンドを指定
 # CMD ["rails", "server", "-b", "0.0.0.0"]
 COPY start.sh /start.sh
+RUN chmod 744 /start.sh
 CMD ["sh", "/start.sh"]
