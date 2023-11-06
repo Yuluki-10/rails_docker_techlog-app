@@ -28,7 +28,5 @@ ENTRYPOINT ["entrypoint.sh"]
 EXPOSE 3000
 
 # Start the main process.
-# コンテナ起動時に実行するコマンドは、start.shに記載
-COPY start.sh /start.sh
-RUN chmod 744 /start.sh
-CMD ["sh", "/start.sh"]
+# コンテナ起動時に実行するコマンドを指定
+CMD ["rails", "server", "-b", "0.0.0.0"]
