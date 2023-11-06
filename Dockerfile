@@ -29,9 +29,9 @@ EXPOSE 3000
 
 # Start the main process.
 # コンテナ起動時に実行するコマンドを指定
-CMD ["rails", "server", "-b", "0.0.0.0"]
+# CMD ["rails", "server", "-b", "0.0.0.0"]
 # bundle exec puma -C config/puma.rb
-# CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
+CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
 # COPY start.sh /start.sh
 # RUN chmod 744 /start.sh
 # CMD ["sh", "/start.sh"]
