@@ -7,6 +7,7 @@ rm -f /rails_docker_techlog-app/tmp/pids/server.pid
 
 # 追記
 if [ $RAILS_ENV = 'production' ]; then
+  bundle exec rails tailwindcss:build
   bundle exec rails assets:clobber
   bundle exec rails assets:precompile
 fi
